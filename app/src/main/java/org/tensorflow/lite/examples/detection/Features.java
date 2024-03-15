@@ -13,6 +13,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import org.tensorflow.lite.examples.detection.Calling.CallActivity;
 import org.tensorflow.lite.examples.detection.Location.LocationActivity;
 import org.tensorflow.lite.examples.detection.Message.MessageReader;
+import org.tensorflow.lite.examples.detection.Moneytransfer.Banktransfer;
+import org.tensorflow.lite.examples.detection.Moneytransfer.PhoneTransfer;
 import org.tensorflow.lite.examples.detection.Music.Music;
 import org.tensorflow.lite.examples.detection.Navigation.Navigation;
 import org.tensorflow.lite.examples.detection.ObjectDetection.MainActivity;
@@ -39,7 +41,7 @@ public class Features extends AppCompatActivity {
                 if (status != TextToSpeech.ERROR) {
                     textToSpeech.setLanguage(Locale.US);
                     textToSpeech.setSpeechRate(1f);
-                    textToSpeech.speak("say read for read, calculator for calculator, Weather for weather, Location for location, Battery, Time and date. Say object detection to detect the object, Say navigation to navigate to the destination. Say message to read the messages. Say call for voice calling. Say music to listen songs. Say back to return to Home screen. say exit for closing the application.  Swipe left and say what you want ", TextToSpeech.QUEUE_FLUSH, null);
+                    textToSpeech.speak("say read for read, calculator for calculator, Weather for weather, Location for location, Battery, Time and date. Say object detection to detect the object, Say navigation to navigate to the destination. Say message to read the messages. Say call for voice calling. Say bank transfer or phone transfer to transfer the money. Say music to listen songs. Say back to return to Home screen. say exit for closing the application.  Swipe left and say what you want ", TextToSpeech.QUEUE_FLUSH, null);
                 }
             }
         });
@@ -126,6 +128,18 @@ public class Features extends AppCompatActivity {
                 else if (mVoiceInputTv.getText().toString().contains("back")) {
                     mVoiceInputTv.setText(null);
                     startActivity(new Intent(this, Home.class));
+                }
+                else if (mVoiceInputTv.getText().toString().contains("bank")) {
+                    Intent intent = new Intent(getApplicationContext(), Banktransfer.class);
+                    startActivity(intent);
+                    mVoiceInputTv.setText(null);
+
+                }
+                else if (mVoiceInputTv.getText().toString().contains("phone")) {
+                    Intent intent = new Intent(getApplicationContext(), PhoneTransfer.class);
+                    startActivity(intent);
+                    mVoiceInputTv.setText(null);
+
                 }
                 } else if (mVoiceInputTv.getText().toString().contains("battery")) {
                     Intent intent = new Intent(getApplicationContext(), Battery.class);

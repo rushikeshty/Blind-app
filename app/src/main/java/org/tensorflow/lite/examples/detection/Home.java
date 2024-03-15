@@ -12,6 +12,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import org.tensorflow.lite.examples.detection.Calling.CallActivity;
 import org.tensorflow.lite.examples.detection.Message.MessageReader;
+import org.tensorflow.lite.examples.detection.Moneytransfer.Banktransfer;
+import org.tensorflow.lite.examples.detection.Moneytransfer.PhoneTransfer;
 import org.tensorflow.lite.examples.detection.Music.Music;
 import org.tensorflow.lite.examples.detection.Navigation.Navigation;
 import org.tensorflow.lite.examples.detection.ObjectDetection.MainActivity;
@@ -187,6 +189,18 @@ public class Home extends AppCompatActivity {
                     }
                     else if (mVoiceInputTv.getText().toString().contains("music")) {
                         Intent intent = new Intent(getApplicationContext(), Music.class);
+                        startActivity(intent);
+                        mVoiceInputTv.setText(null);
+
+                    }
+                    else if (mVoiceInputTv.getText().toString().contains("bank")) {
+                        Intent intent = new Intent(getApplicationContext(), Banktransfer.class);
+                        startActivity(intent);
+                        mVoiceInputTv.setText(null);
+
+                    }
+                    else if (mVoiceInputTv.getText().toString().contains("phone")) {
+                        Intent intent = new Intent(getApplicationContext(), PhoneTransfer.class);
                         startActivity(intent);
                         mVoiceInputTv.setText(null);
 
