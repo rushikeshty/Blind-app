@@ -9,13 +9,14 @@ import android.view.MotionEvent;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
-
-import org.tensorflow.lite.examples.detection.Calling.CallActivity;
-import org.tensorflow.lite.examples.detection.Location.LocationActivity;
 import org.tensorflow.lite.examples.detection.Message.MessageReader;
+import org.tensorflow.lite.examples.detection.Moneytransfer.Banktransfer;
+import org.tensorflow.lite.examples.detection.Moneytransfer.phonetransfer;
 import org.tensorflow.lite.examples.detection.Music.Music;
 import org.tensorflow.lite.examples.detection.Navigation.Navigation;
 import org.tensorflow.lite.examples.detection.ObjectDetection.MainActivity;
+import org.tensorflow.lite.examples.detection.QRProduct.QRactivity;
+import org.tensorflow.lite.examples.detection.Reminder.Reminder;
 
 import java.util.ArrayList;
 import java.util.Locale;
@@ -39,7 +40,7 @@ public class Features extends AppCompatActivity {
                 if (status != TextToSpeech.ERROR) {
                     textToSpeech.setLanguage(Locale.US);
                     textToSpeech.setSpeechRate(1f);
-                    textToSpeech.speak("say read for read, calculator for calculator, Weather for weather, Location for location, Battery, Time and date. Say object detection to detect the object, Say navigation to navigate to the destination. Say message to read the messages. Say call for voice calling. Say music to listen songs. Say back to return to Home screen. say exit for closing the application.  Swipe left and say what you want ", TextToSpeech.QUEUE_FLUSH, null);
+                    textToSpeech.speak("say read for read, calculator for calculator, Weather for weather, Location for location, Battery, Time and date. Say object detection to detect the object, Say navigation to navigate to the destination. Say bank transfer or phone transfer to transfer the amount . Say QR to start the QR Product identification. Say Reminder to create reminder. Say message to read the message. Say music to listen songs. Say back to return to Home screen. say exit for closing the application.  Swipe left and say what you want ", TextToSpeech.QUEUE_FLUSH, null);
                 }
             }
         });
@@ -114,34 +115,43 @@ public class Features extends AppCompatActivity {
                     startActivity(intent);
                     mVoiceInputTv.setText(null);
 
-                } else if (mVoiceInputTv.getText().toString().contains("call")) {
-                    Intent intent = new Intent(getApplicationContext(), CallActivity.class);
-                    startActivity(intent);
-                    mVoiceInputTv.setText(null);
-                } else if (mVoiceInputTv.getText().toString().contains("music")) {
+                }  else if (mVoiceInputTv.getText().toString().contains("music")) {
                     Intent intent = new Intent(getApplicationContext(), Music.class);
                     startActivity(intent);
                     mVoiceInputTv.setText(null);
-                }
-                else if (mVoiceInputTv.getText().toString().contains("back")) {
+                } else if (mVoiceInputTv.getText().toString().contains("back")) {
                     mVoiceInputTv.setText(null);
                     startActivity(new Intent(this, Home.class));
-                }
                 } else if (mVoiceInputTv.getText().toString().contains("battery")) {
                     Intent intent = new Intent(getApplicationContext(), Battery.class);
                     startActivity(intent);
                     mVoiceInputTv.setText(null);
 
+                } else if (mVoiceInputTv.getText().toString().contains("bank transfer")) {
+                    Intent i = new Intent(Features.this, Banktransfer.class);
+                    startActivity(i);
+                } else if (mVoiceInputTv.getText().toString().contains("phone transfer")) {
+                    Intent i = new Intent(Features.this, phonetransfer.class);
+                    startActivity(i);
+                } else if (mVoiceInputTv.getText().toString().contains("scan the QR") || mVoiceInputTv.getText().toString().contains("QR")) {
+                    Intent i = new Intent(Features.this, QRactivity.class);
+                    startActivity(i);
                 } else if (mVoiceInputTv.getText().toString().contains("navigat")) {
                     Intent intent = new Intent(getApplicationContext(), Navigation.class);
                     startActivity(intent);
                     mVoiceInputTv.setText(null);
 
-                } else if (mVoiceInputTv.getText().toString().contains("exit")) {
+                }
+                if (mVoiceInputTv.getText().toString().contains("create reminder")||mVoiceInputTv.getText().toString().contains("reminder")||mVoiceInputTv.getText().toString().contains("reminders")) {
+                    Intent i = new Intent(Features.this, Reminder.class);
+                    startActivity(i);
+                }
+                else if (mVoiceInputTv.getText().toString().contains("exit")) {
                     onPause();
                     finishAffinity();
                 } else {
                     textToSpeech.speak("Do not understand Swipe left Say again", TextToSpeech.QUEUE_FLUSH, null);
+                }
             }
         }
     }

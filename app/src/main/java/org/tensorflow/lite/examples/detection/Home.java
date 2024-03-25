@@ -8,13 +8,17 @@ import android.speech.RecognizerIntent;
 import android.speech.tts.TextToSpeech;
 import android.view.MotionEvent;
 import android.widget.TextView;
-import androidx.appcompat.app.AppCompatActivity;
 
-import org.tensorflow.lite.examples.detection.Calling.CallActivity;
+import androidx.appcompat.app.AppCompatActivity;
 import org.tensorflow.lite.examples.detection.Message.MessageReader;
+import org.tensorflow.lite.examples.detection.Moneytransfer.Banktransfer;
+import org.tensorflow.lite.examples.detection.Moneytransfer.phonetransfer;
 import org.tensorflow.lite.examples.detection.Music.Music;
 import org.tensorflow.lite.examples.detection.Navigation.Navigation;
 import org.tensorflow.lite.examples.detection.ObjectDetection.MainActivity;
+import org.tensorflow.lite.examples.detection.QRProduct.QRactivity;
+import org.tensorflow.lite.examples.detection.Reminder.Reminder;
+
 import java.util.ArrayList;
 import java.util.Locale;
 
@@ -65,7 +69,6 @@ public class Home extends AppCompatActivity {
         mVoiceInputTv = (TextView) findViewById(R.id.voiceInput);
 
     }
-
 
 
     public boolean onTouchEvent(MotionEvent touchEvent) {
@@ -145,8 +148,7 @@ public class Home extends AppCompatActivity {
                         Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                         startActivity(intent);
                         mVoiceInputTv.setText(null);
-                    }
-                    else if (mVoiceInputTv.getText().toString().contains("read message")||mVoiceInputTv.getText().toString().contains("message")) {
+                    } else if (mVoiceInputTv.getText().toString().contains("read message") || mVoiceInputTv.getText().toString().contains("message")) {
                         Readmessage = "read message";
                         Intent i = new Intent(Home.this, MessageReader.class);
                         i.putExtra("read message", Readmessage);
@@ -170,28 +172,19 @@ public class Home extends AppCompatActivity {
                         Intent i = new Intent(Home.this, MessageReader.class);
                         i.putExtra("yesterday message", Readmessage);
                         startActivity(i);
-
-                    }
-                    else if (!mVoiceInputTv.getText().toString().contains("yesterday") && mVoiceInputTv.getText().toString().contains("message")) {
+                    } else if (!mVoiceInputTv.getText().toString().contains("yesterday") && mVoiceInputTv.getText().toString().contains("message")) {
                         Readmessage = "read message";
                         Intent i = new Intent(Home.this, MessageReader.class);
                         i.putExtra("read message", Readmessage);
                         textToSpeech.speak("Getting messages , Please wait", TextToSpeech.QUEUE_FLUSH, null);
                         startActivity(i);
 
-                    }
-                    else if (mVoiceInputTv.getText().toString().contains("call")) {
-                        Intent intent = new Intent(getApplicationContext(), CallActivity.class);
-                        startActivity(intent);
-                        mVoiceInputTv.setText(null);
-                    }
-                    else if (mVoiceInputTv.getText().toString().contains("music")) {
+                    }  else if (mVoiceInputTv.getText().toString().contains("music")) {
                         Intent intent = new Intent(getApplicationContext(), Music.class);
                         startActivity(intent);
                         mVoiceInputTv.setText(null);
 
-                    }
-                    else if (mVoiceInputTv.getText().toString().contains("battery")) {
+                    } else if (mVoiceInputTv.getText().toString().contains("battery")) {
                         Intent intent = new Intent(getApplicationContext(), Battery.class);
                         startActivity(intent);
                         mVoiceInputTv.setText(null);
@@ -201,6 +194,18 @@ public class Home extends AppCompatActivity {
                         startActivity(intent);
                         mVoiceInputTv.setText(null);
 
+                    } else if (mVoiceInputTv.getText().toString().contains("create reminder") || mVoiceInputTv.getText().toString().contains("reminder") || mVoiceInputTv.getText().toString().contains("reminders")) {
+                        Intent i = new Intent(Home.this, Reminder.class);
+                        startActivity(i);
+                    } else if (mVoiceInputTv.getText().toString().contains("bank transfer")) {
+                        Intent i = new Intent(Home.this, Banktransfer.class);
+                        startActivity(i);
+                    } else if (mVoiceInputTv.getText().toString().contains("phone transfer")) {
+                        Intent i = new Intent(Home.this, phonetransfer.class);
+                        startActivity(i);
+                    } else if (result.get(0).contains("scan the QR") || result.get(0).contains("QR")) {
+                        Intent i = new Intent(Home.this, QRactivity.class);
+                        startActivity(i);
                     } else if (mVoiceInputTv.getText().toString().contains("exit")) {
                         mVoiceInputTv.setText(null);
                         finishAffinity();

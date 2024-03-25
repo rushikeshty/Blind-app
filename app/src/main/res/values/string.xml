@@ -16,6 +16,10 @@
         \n Say <b>Battery</b> to get battery percentage.
         \n Say <b>Time and Date</b> for time and date.
         \n Say <b>Message reader</b> to read the messages.
+        \n Say <b>bank transfer</b> to transfer the amount.
+        \n Say <b>phone transfer</b> to transfer the amount.
+        \n Say <b>reminder</b> to create reminders.
+        \n Say <b>qr</b> to start qr product identification.
         \n Say <b>Music</b> to transfer the amount using phone number.
          \n Say <b>Call</b> for calling using phone number.
         \n Say <b>back</b> to return to Home screen
