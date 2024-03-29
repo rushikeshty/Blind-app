@@ -6,6 +6,14 @@
     <string name="weather_img">weather image</string>
     <string name="camera_error">This device doesn\'t support Camera2 API.</string>
     <string name="batter_percentage">battery</string>
+    <string name="hour_minute_am_pm">Hour \t\t\t\t\t\t\t\t\t Minute AM/PM</string>
+    <string name="translated_text_hint">Translated text</string>
+    <string name="downloaded_models_label">Downloaded models: %1$s</string>
+    <string name="delete_model">Delete Model</string>
+    <string name="download_model">Download Model</string>
+    <string name="unknown_error">Unknown error occurred.</string>
+    <string name="source_text_hint">Source text</string>
+
     <string name="features">
         say <b>read</b> to read the text using camera.
         \n Say <b>Object detection</b> to detect  the object.
