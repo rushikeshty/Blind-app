@@ -12,7 +12,7 @@
         android:layout_height="0dp"
         android:text="@string/features"
         android:textColor="@color/black"
-        android:textSize="20sp"
+        android:textSize="17.5sp"
         android:background="#94A0FDEA"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
