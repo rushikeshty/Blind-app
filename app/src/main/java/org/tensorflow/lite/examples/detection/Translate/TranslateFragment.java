@@ -51,13 +51,13 @@ import java.util.Locale;
  */
 public class TranslateFragment extends Fragment implements TextToSpeech.OnUtteranceCompletedListener, RecognitionListener {
 
-     private TextToSpeech textToSpeech;
-    SpeechRecognizer hin,en;
+    private TextToSpeech textToSpeech;
+    SpeechRecognizer hin, en;
     TextView textView;
     static ArrayList<String> tt = new ArrayList<>();
-     private TextToSpeech ktts;
+    private TextToSpeech ktts;
     static String results;
-    String hindi,english;
+    String hindi, english;
 
     public static TranslateFragment newInstance() {
         return new TranslateFragment();
@@ -83,10 +83,10 @@ public class TranslateFragment extends Fragment implements TextToSpeech.OnUttera
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        if(checkIfAlreadyhavePermission()){
+        if (checkIfAlreadyhavePermission()) {
             Toast.makeText(getContext(), "Permission is granted", Toast.LENGTH_SHORT).show();
 
-        }else {
+        } else {
             ActivityCompat.requestPermissions(requireActivity(),
                     new String[]{Manifest.permission.RECORD_AUDIO},
                     1);
@@ -101,12 +101,12 @@ public class TranslateFragment extends Fragment implements TextToSpeech.OnUttera
         textView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(!textToSpeech.isSpeaking()){
-                    if(textView2.getText().toString().contains("English to Hindi")){
+                if (!textToSpeech.isSpeaking()) {
+                    if (textView2.getText().toString().contains("English to Hindi")) {
                         startEnglishVoiceInput();
                         return;
                     }
-                    if(textView2.getText().toString().contains("Hindi to English")){
+                    if (textView2.getText().toString().contains("Hindi to English")) {
                         startUrduVoiceInput();
                         return;
                     }
@@ -131,9 +131,9 @@ public class TranslateFragment extends Fragment implements TextToSpeech.OnUttera
             @Override
             public void onInit(int status) {
                 if (status != TextToSpeech.ERROR) {
-                            textToSpeech.setLanguage(new Locale("hi"));
-                            textToSpeech.setSpeechRate(1f);
-                 }
+                    textToSpeech.setLanguage(new Locale("hi"));
+                    textToSpeech.setSpeechRate(1f);
+                }
             }
 
         });
@@ -155,8 +155,8 @@ public class TranslateFragment extends Fragment implements TextToSpeech.OnUttera
         h.postDelayed(new Runnable() {
             @Override
             public void run() {
-                if(!downloadedModelsTextView.getText().toString().contains("hi")){
-                    ktts.speak("translating model is downloading. please do not close the app",TextToSpeech.QUEUE_FLUSH,null);
+                if (!downloadedModelsTextView.getText().toString().contains("hi")) {
+                    ktts.speak("translating model is downloading. please do not close the app", TextToSpeech.QUEUE_FLUSH, null);
                     final Spinner targetLangSelector = requireView().findViewById(R.id.targetLangSelector);
                     final TranslateViewModel viewModel = ViewModelProviders.of(TranslateFragment.this).get(TranslateViewModel.class);
                     final ArrayAdapter<TranslateViewModel.Language> adapter = new ArrayAdapter<TranslateViewModel.Language>(getContext(), android.R.layout.simple_spinner_dropdown_item, viewModel.getAvailableLanguages());
@@ -166,16 +166,15 @@ public class TranslateFragment extends Fragment implements TextToSpeech.OnUttera
                             adapter.getItem(targetLangSelector.getSelectedItemPosition());
                     viewModel.downloadLanguage(language);
 
-                }
-                else {
+                } else {
                     ktts.speak("Welcome to Translator, say English to hindi for English to hindi and, say hindi to English for hindi to English, Press long on the screen to return in main menu", TextToSpeech.QUEUE_FLUSH, null, "en");
                     textToSpeech.setOnUtteranceCompletedListener(TranslateFragment.this);
                 }
             }
         }, 1000);
 
-         final ToggleButton targetSyncButton = view.findViewById(R.id.buttonSyncTarget);
-         final Spinner targetLangSelector = view.findViewById(R.id.targetLangSelector);
+        final ToggleButton targetSyncButton = view.findViewById(R.id.buttonSyncTarget);
+        final Spinner targetLangSelector = view.findViewById(R.id.targetLangSelector);
         final TranslateViewModel viewModel = ViewModelProviders.of(this).get(TranslateViewModel.class);
 
         // Get available language list and set up source and target language spinners
@@ -185,8 +184,8 @@ public class TranslateFragment extends Fragment implements TextToSpeech.OnUttera
                         getContext(),
                         android.R.layout.simple_spinner_dropdown_item,
                         viewModel.getAvailableLanguages());
-         targetLangSelector.setAdapter(adapter);
-         targetLangSelector.setSelection(adapter.getPosition(new TranslateViewModel.Language("hi")));
+        targetLangSelector.setAdapter(adapter);
+        targetLangSelector.setSelection(adapter.getPosition(new TranslateViewModel.Language("hi")));
 
         targetSyncButton.setOnCheckedChangeListener(
                 new CompoundButton.OnCheckedChangeListener() {
@@ -211,8 +210,9 @@ public class TranslateFragment extends Fragment implements TextToSpeech.OnUttera
                         String output =
                                 requireContext().getString(R.string.downloaded_models_label, translateRemoteModels);
                         downloadedModelsTextView.setText(output);
-                        if(downloadedModelsTextView.getText().toString().contains("ur")){
-                            ktts.speak("tap on screen and say English to hindi for English to hindi and, say hindi to English for hindi to English, Press long on the screen to return in main menu", TextToSpeech.QUEUE_FLUSH, null);;
+                        if (downloadedModelsTextView.getText().toString().contains("ur")) {
+                            ktts.speak("tap on screen and say English to hindi for English to hindi and, say hindi to English for hindi to English, Press long on the screen to return in main menu", TextToSpeech.QUEUE_FLUSH, null);
+                            ;
                         }
                         targetSyncButton.setChecked(
                                 !viewModel.requiresModelDownload(
@@ -226,10 +226,11 @@ public class TranslateFragment extends Fragment implements TextToSpeech.OnUttera
     private void startUrduVoiceInput() {
         Intent intent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
         intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
-        intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE,"hi");
+        intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, "hi");
         intent.putExtra(RecognizerIntent.EXTRA_PROMPT, "Hello, How can I help you?");
         hin.startListening(intent);
     }
+
     private void startEnglishVoiceInput() {
         Intent intent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
         intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
@@ -241,7 +242,7 @@ public class TranslateFragment extends Fragment implements TextToSpeech.OnUttera
 
     @Override
     public void onUtteranceCompleted(String s) {
-        if(s.equals("hi")) {
+        if (s.equals("hi")) {
             requireActivity().runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
@@ -250,13 +251,13 @@ public class TranslateFragment extends Fragment implements TextToSpeech.OnUttera
                 }
             });
         }
-        if(s.equals("en")) {
+        if (s.equals("en")) {
             requireActivity().runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
                     final TextView downloadedModelsTextView = requireView().findViewById(R.id.downloadedModels);
-                    if(downloadedModelsTextView.getText().toString().contains("hi")){
-                        ktts.speak("tap on the screen and say",TextToSpeech.QUEUE_FLUSH,null);
+                    if (downloadedModelsTextView.getText().toString().contains("hi")) {
+                        ktts.speak("tap on the screen and say", TextToSpeech.QUEUE_FLUSH, null);
                     }
 
                 }
@@ -270,7 +271,7 @@ public class TranslateFragment extends Fragment implements TextToSpeech.OnUttera
         int result = ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.RECORD_AUDIO);
         return result == PackageManager.PERMISSION_GRANTED;
     }
-     // add toast to check whether it is working or not
+    // add toast to check whether it is working or not
 
     @Override
     public void onReadyForSpeech(Bundle bundle) {
@@ -306,18 +307,19 @@ public class TranslateFragment extends Fragment implements TextToSpeech.OnUttera
     public void onResults(Bundle bundle) {
         final TextView textView2 = requireView().findViewById(R.id.tt);
         tt = bundle.getStringArrayList(SpeechRecognizer.RESULTS_RECOGNITION);
-         if(tt.get(0).contains("English to hindi")){
+        if (tt.get(0).contains("English to hindi")) {
             textView2.setText(tt.get(0));
-            ktts.speak("tap on the screen and tell me the word that you want to translate", TextToSpeech.QUEUE_FLUSH, null);;
+            ktts.speak("tap on the screen and tell me the word that you want to translate", TextToSpeech.QUEUE_FLUSH, null);
+            ;
         }
-        if(tt.get(0).contains("hindi to English")){
+        if (tt.get(0).contains("hindi to English")) {
             textView2.setText(tt.get(0));
             textToSpeech.speak("", TextToSpeech.QUEUE_FLUSH, null);
         }
-        if(tt.get(0).contains("main menu")){
+        if (tt.get(0).contains("main menu")) {
             startActivity(new Intent(getContext(), Home.class));
         }
-        if(textView2.getText().toString().contains("English to hindi")){
+        if (textView2.getText().toString().contains("English to hindi")) {
             ArrayList<String> result = bundle.getStringArrayList(SpeechRecognizer.RESULTS_RECOGNITION);
             TranslatorOptions options =
                     new TranslatorOptions.Builder()
@@ -327,7 +329,7 @@ public class TranslateFragment extends Fragment implements TextToSpeech.OnUttera
 
             Translator englishhindiTranslator =
                     Translation.getClient(options);
-            english = result.get(0).replace("English to Hindi","");
+            english = result.get(0).replace("English to Hindi", "");
             DownloadConditions conditions = new DownloadConditions.Builder()
                     .requireWifi()
                     .build();
@@ -341,15 +343,14 @@ public class TranslateFragment extends Fragment implements TextToSpeech.OnUttera
                                             new OnSuccessListener() {
                                                 @Override
                                                 public void onSuccess(Object translatedText) {
-                                                     textView.setText((String) translatedText);
-                                                    if(textView.getText().toString().equals("")){
+                                                    textView.setText((String) translatedText);
+                                                    if (textView.getText().toString().equals("")) {
                                                         Toast.makeText(getContext(), translatedText.toString(), Toast.LENGTH_SHORT).show();
-                                                    }
-                                                    else {
+                                                    } else {
                                                         results = translatedText.toString();
                                                         Toast.makeText(getContext(), translatedText.toString(), Toast.LENGTH_LONG).show();
                                                         textToSpeech.speak(translatedText.toString(), TextToSpeech.QUEUE_FLUSH, null);
-                                                        ktts.speak("tap on the screen and say the word",TextToSpeech.QUEUE_ADD,null);
+                                                        ktts.speak("tap on the screen and say the word", TextToSpeech.QUEUE_ADD, null);
                                                     }
                                                     Log.i("TAG", "Translation is " + (String) translatedText);
                                                 }
@@ -382,9 +383,8 @@ public class TranslateFragment extends Fragment implements TextToSpeech.OnUttera
                             });
 
 
-
         }
-        if(textView2.getText().toString().contains("Urdu to English")){
+        if (textView2.getText().toString().contains("Urdu to English")) {
             ArrayList<String> result = bundle.getStringArrayList(SpeechRecognizer.RESULTS_RECOGNITION);
             TranslatorOptions options =
                     new TranslatorOptions.Builder()
@@ -395,7 +395,7 @@ public class TranslateFragment extends Fragment implements TextToSpeech.OnUttera
             final Translator hindienglishtranslator =
                     Translation.getClient(options);
 
-            hindi = result.get(0).replace("hindi to English","");
+            hindi = result.get(0).replace("hindi to English", "");
 
 
             DownloadConditions conditions = new DownloadConditions.Builder()
@@ -413,13 +413,12 @@ public class TranslateFragment extends Fragment implements TextToSpeech.OnUttera
                                                 @Override
                                                 public void onSuccess(Object translatedText) {
                                                     textView.setText(translatedText.toString());
-                                                    if(textView.getText().toString().equals("")){
+                                                    if (textView.getText().toString().equals("")) {
                                                         Toast.makeText(getContext(), translatedText.toString(), Toast.LENGTH_SHORT).show();
-                                                    }
-                                                    else {
+                                                    } else {
                                                         Toast.makeText(getContext(), translatedText.toString(), Toast.LENGTH_LONG).show();
                                                         ktts.speak((String) translatedText, TextToSpeech.QUEUE_FLUSH, null);
-                                                        ktts.speak("tap on the screen and say the word",TextToSpeech.QUEUE_ADD,null);
+                                                        ktts.speak("tap on the screen and say the word", TextToSpeech.QUEUE_ADD, null);
                                                     }
                                                     Log.i("TAG", "Translation is " + (String) translatedText);
                                                 }
@@ -445,9 +444,6 @@ public class TranslateFragment extends Fragment implements TextToSpeech.OnUttera
                             });
 
         }
-
-
-
 
 
     }

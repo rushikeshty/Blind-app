@@ -8,13 +8,23 @@ import android.speech.RecognizerIntent;
 import android.speech.tts.TextToSpeech;
 import android.view.MotionEvent;
 import android.widget.TextView;
+
 import androidx.appcompat.app.AppCompatActivity;
 
 import org.tensorflow.lite.examples.detection.Calling.CallActivity;
 import org.tensorflow.lite.examples.detection.Message.MessageReader;
+import org.tensorflow.lite.examples.detection.Moneytransfer.Banktransfer;
+import org.tensorflow.lite.examples.detection.Moneytransfer.phonetransfer;
 import org.tensorflow.lite.examples.detection.Music.Music;
 import org.tensorflow.lite.examples.detection.Navigation.Navigation;
+import org.tensorflow.lite.examples.detection.Note.NoteActivity;
+import org.tensorflow.lite.examples.detection.Note.Notes;
 import org.tensorflow.lite.examples.detection.ObjectDetection.MainActivity;
+import org.tensorflow.lite.examples.detection.QRProduct.QRactivity;
+import org.tensorflow.lite.examples.detection.Reminder.Reminder;
+import org.tensorflow.lite.examples.detection.Reminder.ReminderActivity;
+import org.tensorflow.lite.examples.detection.Translate.TranslateActivity;
+
 import java.util.ArrayList;
 import java.util.Locale;
 
@@ -65,7 +75,6 @@ public class Home extends AppCompatActivity {
         mVoiceInputTv = (TextView) findViewById(R.id.voiceInput);
 
     }
-
 
 
     public boolean onTouchEvent(MotionEvent touchEvent) {
@@ -145,8 +154,7 @@ public class Home extends AppCompatActivity {
                         Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                         startActivity(intent);
                         mVoiceInputTv.setText(null);
-                    }
-                    else if (mVoiceInputTv.getText().toString().contains("read message")||mVoiceInputTv.getText().toString().contains("message")) {
+                    } else if (mVoiceInputTv.getText().toString().contains("read message") || mVoiceInputTv.getText().toString().contains("message")) {
                         Readmessage = "read message";
                         Intent i = new Intent(Home.this, MessageReader.class);
                         i.putExtra("read message", Readmessage);
@@ -171,27 +179,23 @@ public class Home extends AppCompatActivity {
                         i.putExtra("yesterday message", Readmessage);
                         startActivity(i);
 
-                    }
-                    else if (!mVoiceInputTv.getText().toString().contains("yesterday") && mVoiceInputTv.getText().toString().contains("message")) {
+                    } else if (!mVoiceInputTv.getText().toString().contains("yesterday") && mVoiceInputTv.getText().toString().contains("message")) {
                         Readmessage = "read message";
                         Intent i = new Intent(Home.this, MessageReader.class);
                         i.putExtra("read message", Readmessage);
                         textToSpeech.speak("Getting messages , Please wait", TextToSpeech.QUEUE_FLUSH, null);
                         startActivity(i);
 
-                    }
-                    else if (mVoiceInputTv.getText().toString().contains("call")) {
+                    } else if (mVoiceInputTv.getText().toString().contains("call")) {
                         Intent intent = new Intent(getApplicationContext(), CallActivity.class);
                         startActivity(intent);
                         mVoiceInputTv.setText(null);
-                    }
-                    else if (mVoiceInputTv.getText().toString().contains("music")) {
+                    } else if (mVoiceInputTv.getText().toString().contains("music")) {
                         Intent intent = new Intent(getApplicationContext(), Music.class);
                         startActivity(intent);
                         mVoiceInputTv.setText(null);
 
-                    }
-                    else if (mVoiceInputTv.getText().toString().contains("battery")) {
+                    } else if (mVoiceInputTv.getText().toString().contains("battery")) {
                         Intent intent = new Intent(getApplicationContext(), Battery.class);
                         startActivity(intent);
                         mVoiceInputTv.setText(null);
@@ -204,7 +208,38 @@ public class Home extends AppCompatActivity {
                     } else if (mVoiceInputTv.getText().toString().contains("exit")) {
                         mVoiceInputTv.setText(null);
                         finishAffinity();
-                    } else {
+                    } else if (mVoiceInputTv.getText().toString().contains("qr") || mVoiceInputTv.getText().toString().contains("QR")) {
+                        Intent intent = new Intent(getApplicationContext(), QRactivity.class);
+                        startActivity(intent);
+                        mVoiceInputTv.setText(null);
+
+                    } else if (mVoiceInputTv.getText().toString().contains("reminder")) {
+                        Intent intent = new Intent(getApplicationContext(), Reminder.class);
+                        startActivity(intent);
+                        mVoiceInputTv.setText(null);
+
+                    } else if (mVoiceInputTv.getText().toString().contains("bank")) {
+                        Intent intent = new Intent(getApplicationContext(), Banktransfer.class);
+                        startActivity(intent);
+                        mVoiceInputTv.setText(null);
+
+                    } else if (mVoiceInputTv.getText().toString().contains("phone")) {
+                        Intent intent = new Intent(getApplicationContext(), phonetransfer.class);
+                        startActivity(intent);
+                        mVoiceInputTv.setText(null);
+
+                    } else if (mVoiceInputTv.getText().toString().contains("translat") || mVoiceInputTv.getText().toString().contains("translator")) {
+                        Intent intent = new Intent(getApplicationContext(), TranslateActivity.class);
+                        startActivity(intent);
+                        mVoiceInputTv.setText(null);
+
+                    } else if (mVoiceInputTv.getText().toString().contains("note")) {
+                        Intent intent = new Intent(getApplicationContext(), Notes.class);
+                        startActivity(intent);
+                        mVoiceInputTv.setText(null);
+
+                    }
+                    else {
                         textToSpeech.speak("Do not understand Swipe left Say again", TextToSpeech.QUEUE_FLUSH, null);
                     }
 

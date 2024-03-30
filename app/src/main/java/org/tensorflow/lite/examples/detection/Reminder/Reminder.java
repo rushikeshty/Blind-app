@@ -31,8 +31,8 @@ public class Reminder extends AppCompatActivity {
     RecyclerView mRecyclerview;
     TextView textView;
     ArrayList<Model> dataholder = new ArrayList<>();                                               //Array list to add reminders and display in recyclerview
-    static float x1,x2;
-    public static ArrayList<String> time=new ArrayList<>();
+    static float x1, x2;
+    public static ArrayList<String> time = new ArrayList<>();
     TextView txt;
     myAdapter adapter;
     private DBHandler dbHandler;
@@ -49,7 +49,7 @@ public class Reminder extends AppCompatActivity {
         mRecyclerview = (RecyclerView) findViewById(R.id.recyclerView);
         txt = findViewById(R.id.textView);
         mRecyclerview.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
-        final GestureDetector gd = new GestureDetector(Reminder.this, new GestureDetector.SimpleOnGestureListener(){
+        final GestureDetector gd = new GestureDetector(Reminder.this, new GestureDetector.SimpleOnGestureListener() {
 
 
             //here is the method for double tap
@@ -65,7 +65,7 @@ public class Reminder extends AppCompatActivity {
             public void onLongPress(MotionEvent e) {
                 //when user press long on the screen it return to main menu
                 super.onLongPress(e);
-                Intent i = new Intent(Reminder.this,Home.class);
+                Intent i = new Intent(Reminder.this, Home.class);
                 startActivity(i);
             }
 
@@ -94,10 +94,10 @@ public class Reminder extends AppCompatActivity {
                         break;
                     case MotionEvent.ACTION_UP:
                         x2 = event.getX();
-                        if (x1>x2){
+                        if (x1 > x2) {
                             textToSpeech.stop();
                             finish();
-                            Intent i = new Intent(Reminder.this,ReminderActivity.class);
+                            Intent i = new Intent(Reminder.this, ReminderActivity.class);
                             i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                             startActivity(i);
                             return false;
@@ -105,13 +105,12 @@ public class Reminder extends AppCompatActivity {
                         }
 
                         if (x1 < x2) {
-                            if(time.toString().contains("[]")){
+                            if (time.toString().contains("[]")) {
                                 txt.setText("There are no reminders for today. swipe right, to add the reminder");
-                                textToSpeech.speak("There are no reminders for today. swipe right, to add the reminder", TextToSpeech.QUEUE_FLUSH,null);
-                            }
-                            else {
-                                textToSpeech.speak(time.toString(),TextToSpeech.QUEUE_FLUSH,null);
-                                textToSpeech.speak("swipe left to read once again", TextToSpeech.QUEUE_ADD,null);
+                                textToSpeech.speak("There are no reminders for today. swipe right, to add the reminder", TextToSpeech.QUEUE_FLUSH, null);
+                            } else {
+                                textToSpeech.speak(time.toString(), TextToSpeech.QUEUE_FLUSH, null);
+                                textToSpeech.speak("swipe left to read once again", TextToSpeech.QUEUE_ADD, null);
 
                             }
                             return false;
@@ -133,8 +132,8 @@ public class Reminder extends AppCompatActivity {
                 if (status != TextToSpeech.ERROR) {
                     textToSpeech.setLanguage(Locale.getDefault());
                     textToSpeech.setSpeechRate(0.9f);
-                    textToSpeech.speak(query1,TextToSpeech.QUEUE_FLUSH,null);
-                    textToSpeech.speak("or press long on the screen to return in main menu",TextToSpeech.QUEUE_ADD,null);
+                    textToSpeech.speak(query1, TextToSpeech.QUEUE_FLUSH, null);
+                    textToSpeech.speak("or press long on the screen to return in main menu", TextToSpeech.QUEUE_ADD, null);
                 }
             }
 
@@ -144,16 +143,15 @@ public class Reminder extends AppCompatActivity {
 
         Boolean ISDELETED = dbHandler.deleteAll();
 
-        if(ISDELETED){
+        if (ISDELETED) {
             Toast.makeText(getApplicationContext(), "All reminders deleted ", Toast.LENGTH_SHORT).show();
-        }
-        else {
+        } else {
             Toast.makeText(getApplicationContext(), "Error", Toast.LENGTH_SHORT).show();
         }
 
         Cursor cursor = dbHandler.readallreminders();                  //Cursor To Load data From the database
         while (cursor.moveToNext()) {
-            Model model = new Model(cursor.getString(1), cursor.getString(2), cursor.getString(3),cursor.getString(4));
+            Model model = new Model(cursor.getString(1), cursor.getString(2), cursor.getString(3), cursor.getString(4));
             dataholder.add(model);
         }
 
@@ -163,8 +161,8 @@ public class Reminder extends AppCompatActivity {
 
         if (cursor.moveToFirst()) {
             do {
-                if(cursor.getString(2).equals(formattedDate)) {
-                    time.add("You have a reminder at,"+cursor.getString(3)+",and reminder is "+cursor.getString(1)+".");
+                if (cursor.getString(2).equals(formattedDate)) {
+                    time.add("You have a reminder at," + cursor.getString(3) + ",and reminder is " + cursor.getString(1) + ".");
 
                 }
             }
@@ -173,12 +171,11 @@ public class Reminder extends AppCompatActivity {
         }
 
         adapter = new myAdapter(dataholder);
-        if(time.size()>0){
+        if (time.size() > 0) {
             txt.setText("You have a new reminder for today. swipe left to read the reminder or swipe right to create reminder.");
             query1 = "You have a new reminder for today. swipe left to read the reminder or swipe right to create reminder.";
             Toast.makeText(getApplicationContext(), time.toString(), Toast.LENGTH_LONG).show();
-        }
-        else {
+        } else {
             query1 = "you have no reminder for today. swipe right to create a reminder.";
             txt.setText(query1);
         }
@@ -188,9 +185,7 @@ public class Reminder extends AppCompatActivity {
         //Binds the adapter with recyclerview
 
 
-
     }
-
 
 
     @Override
@@ -200,6 +195,7 @@ public class Reminder extends AppCompatActivity {
         //Makes the user to exit from the app
         super.onBackPressed();
     }
+
     public void onPause() {
         if (textToSpeech != null) {
             textToSpeech.stop();
@@ -207,7 +203,6 @@ public class Reminder extends AppCompatActivity {
         super.onPause();
 
     }
-
 
 
 }
