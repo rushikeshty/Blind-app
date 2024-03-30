@@ -30,14 +30,14 @@ public class NotificationMessage extends AppCompatActivity implements TextToSpee
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_notification_message);
         textView = findViewById(R.id.tv_message);
-        textView.setText(AlarmService.message+ "at time "+AlarmService.time);
+        textView.setText(AlarmService.message+ ". at time "+AlarmService.time);
         dbHandler = new DBHandler(this);
         textToSpeech = new TextToSpeech(this, new TextToSpeech.OnInitListener() {
             @Override
             public void onInit(int i) {
                 if (i != TextToSpeech.ERROR) {
                     textToSpeech.setLanguage(Locale.getDefault());
-                    textToSpeech.speak("you have a reminder, and reminder is " + textView.getText().toString() + "  returning to main menu", TextToSpeech.QUEUE_FLUSH, null, "complete");
+                    textToSpeech.speak("you have a reminder, and reminder is. " + textView.getText().toString() + "  .returning to main menu", TextToSpeech.QUEUE_FLUSH, null, "complete");
                 }
 
             }

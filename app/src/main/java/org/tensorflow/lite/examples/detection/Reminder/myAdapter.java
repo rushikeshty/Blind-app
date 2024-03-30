@@ -14,7 +14,8 @@ import java.util.ArrayList;
 
 public class myAdapter extends RecyclerView.Adapter<myAdapter.myviewholder> {
     ArrayList<Model> dataholder;                                               //array list to hold the reminders
-     public myAdapter(ArrayList<Model> dataholder) {
+
+    public myAdapter(ArrayList<Model> dataholder) {
         this.dataholder = dataholder;
     }
 
@@ -40,7 +41,7 @@ public class myAdapter extends RecyclerView.Adapter<myAdapter.myviewholder> {
 
     static class myviewholder extends RecyclerView.ViewHolder {
 
-         TextView mTitle, mDate, mTime,Datetime;
+        TextView mTitle, mDate, mTime, Datetime;
 
         public myviewholder(@NonNull View itemView) {
             super(itemView);

@@ -1,8 +1,12 @@
 package org.tensorflow.lite.examples.detection.Reminder;
 
+import android.Manifest;
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.database.Cursor;
+import android.os.Build;
 import android.os.Bundle;
 import android.speech.tts.TextToSpeech;
 import android.view.GestureDetector;
@@ -12,6 +16,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -27,7 +33,7 @@ import java.util.Locale;
 
 public class Reminder extends AppCompatActivity {
 
-
+    private static final int NOTIFICATION_REQUEST_CODE = 1;
     RecyclerView mRecyclerview;
     TextView textView;
     ArrayList<Model> dataholder = new ArrayList<>();                                               //Array list to add reminders and display in recyclerview
@@ -48,6 +54,7 @@ public class Reminder extends AppCompatActivity {
         textView = findViewById(R.id.textView);
         mRecyclerview = (RecyclerView) findViewById(R.id.recyclerView);
         txt = findViewById(R.id.textView);
+        manageNotificationPermission();
         mRecyclerview.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
         final GestureDetector gd = new GestureDetector(Reminder.this, new GestureDetector.SimpleOnGestureListener() {
 
@@ -187,6 +194,19 @@ public class Reminder extends AppCompatActivity {
 
     }
 
+    private void manageNotificationPermission() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            if (ContextCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.ACCESS_NOTIFICATION_POLICY)
+                    != PackageManager.PERMISSION_GRANTED
+            ) {
+                ActivityCompat.requestPermissions(
+                        (Activity) getApplicationContext(),
+                        new String[]{Manifest.permission.ACCESS_NOTIFICATION_POLICY},
+                        NOTIFICATION_REQUEST_CODE
+                );
+            }
+        }
+    }
 
     @Override
     public void onBackPressed() {
