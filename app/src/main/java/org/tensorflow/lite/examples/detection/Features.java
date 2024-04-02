@@ -104,6 +104,11 @@ public class Features extends AppCompatActivity {
                     Intent intent = new Intent(getApplicationContext(), Weather.class);
                     startActivity(intent);
                     mVoiceInputTv.setText(null);
+                }
+                else if (mVoiceInputTv.getText().toString().contains("location")) {
+                    Intent intent = new Intent(getApplicationContext(), LocationActivity.class);
+                    startActivity(intent);
+                    mVoiceInputTv.setText(null);
                 } else if (mVoiceInputTv.getText().toString().contains("object")) {
                     onPause();
                     Intent intent = new Intent(getApplicationContext(), MainActivity.class);

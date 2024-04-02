@@ -1,5 +1,6 @@
 package org.tensorflow.lite.examples.detection;
 
+import android.Manifest;
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.os.Build;
@@ -8,18 +9,24 @@ import android.speech.RecognizerIntent;
 import android.speech.tts.TextToSpeech;
 import android.view.MotionEvent;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import androidx.appcompat.app.AppCompatActivity;
 
 import org.tensorflow.lite.examples.detection.Calling.CallActivity;
+import org.tensorflow.lite.examples.detection.Location.LocationActivity;
 import org.tensorflow.lite.examples.detection.Message.MessageReader;
 import org.tensorflow.lite.examples.detection.Music.Music;
 import org.tensorflow.lite.examples.detection.Navigation.Navigation;
+import org.tensorflow.lite.examples.detection.ObjectDetection.CameraActivity;
 import org.tensorflow.lite.examples.detection.ObjectDetection.MainActivity;
+
 import java.util.ArrayList;
 import java.util.Locale;
 
 public class Home extends AppCompatActivity {
     private static final int REQ_CODE_SPEECH_INPUT = 100;
+    private static final int PERMISSIONS_REQUEST = 1;
     private static int firstTime = 0;
     private TextView mVoiceInputTv;
     float x1, x2, y1, y2;
@@ -41,7 +48,7 @@ public class Home extends AppCompatActivity {
 
         setContentView(R.layout.activity_main);
 
-
+        requestPermission();
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             textToSpeech = new TextToSpeech(this, new TextToSpeech.OnInitListener() {
 
@@ -64,6 +71,16 @@ public class Home extends AppCompatActivity {
 
         mVoiceInputTv = (TextView) findViewById(R.id.voiceInput);
 
+    }
+    private void requestPermission() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            if (shouldShowRequestPermissionRationale(Manifest.permission.CAMERA)
+                    || shouldShowRequestPermissionRationale(Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
+                Toast.makeText(Home.this,
+                        "Camera AND storage permission are required for this app", Toast.LENGTH_LONG).show();
+            }
+            requestPermissions(new String[]{Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE}, PERMISSIONS_REQUEST);
+        }
     }
 
 
@@ -145,8 +162,7 @@ public class Home extends AppCompatActivity {
                         Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                         startActivity(intent);
                         mVoiceInputTv.setText(null);
-                    }
-                    else if (mVoiceInputTv.getText().toString().contains("read message")||mVoiceInputTv.getText().toString().contains("message")) {
+                    } else if (mVoiceInputTv.getText().toString().contains("read message") || mVoiceInputTv.getText().toString().contains("message")) {
                         Readmessage = "read message";
                         Intent i = new Intent(Home.this, MessageReader.class);
                         i.putExtra("read message", Readmessage);
@@ -171,31 +187,31 @@ public class Home extends AppCompatActivity {
                         i.putExtra("yesterday message", Readmessage);
                         startActivity(i);
 
-                    }
-                    else if (!mVoiceInputTv.getText().toString().contains("yesterday") && mVoiceInputTv.getText().toString().contains("message")) {
+                    } else if (!mVoiceInputTv.getText().toString().contains("yesterday") && mVoiceInputTv.getText().toString().contains("message")) {
                         Readmessage = "read message";
                         Intent i = new Intent(Home.this, MessageReader.class);
                         i.putExtra("read message", Readmessage);
                         textToSpeech.speak("Getting messages , Please wait", TextToSpeech.QUEUE_FLUSH, null);
                         startActivity(i);
 
-                    }
-                    else if (mVoiceInputTv.getText().toString().contains("call")) {
+                    } else if (mVoiceInputTv.getText().toString().contains("call")) {
                         Intent intent = new Intent(getApplicationContext(), CallActivity.class);
                         startActivity(intent);
                         mVoiceInputTv.setText(null);
-                    }
-                    else if (mVoiceInputTv.getText().toString().contains("music")) {
+                    } else if (mVoiceInputTv.getText().toString().contains("music")) {
                         Intent intent = new Intent(getApplicationContext(), Music.class);
                         startActivity(intent);
                         mVoiceInputTv.setText(null);
 
-                    }
-                    else if (mVoiceInputTv.getText().toString().contains("battery")) {
+                    } else if (mVoiceInputTv.getText().toString().contains("battery")) {
                         Intent intent = new Intent(getApplicationContext(), Battery.class);
                         startActivity(intent);
                         mVoiceInputTv.setText(null);
 
+                    } else if (mVoiceInputTv.getText().toString().contains("location")) {
+                        Intent intent = new Intent(getApplicationContext(), LocationActivity.class);
+                        startActivity(intent);
+                        mVoiceInputTv.setText(null);
                     } else if (mVoiceInputTv.getText().toString().contains("navigat")) {
                         Intent intent = new Intent(getApplicationContext(), Navigation.class);
                         startActivity(intent);
