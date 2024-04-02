@@ -12,9 +12,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import androidx.appcompat.app.AppCompatActivity;
-
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -129,10 +127,11 @@ public class Weather extends AppCompatActivity {
                         Intent intent = new Intent(Intent.ACTION_MAIN);
                         intent.setComponent(new ComponentName("org.tensorflow.lite.examples.detection", "ObjectDetection"));
                         startActivity(intent);
-                    } else if (cityInput.getText().toString().contains("back")) {
+                    }
+                    else if (cityInput.getText().toString().contains("back")) {
                         cityInput.setText(null);
                         startActivity(new Intent(this, Home.class));
-                    } else if (cityInput.getText().toString().contains("time and date")) {
+                    }else if (cityInput.getText().toString().contains("time and date")) {
                         onDestroy();
                         Intent intent = new Intent(getApplicationContext(), DateAndTime.class);
                         startActivity(intent);

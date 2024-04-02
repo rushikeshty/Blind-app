@@ -13,7 +13,7 @@ public class TranslateActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_translate);
+       setContentView(R.layout.activity_translate);
 
         if (savedInstanceState == null) {
             getSupportFragmentManager()
@@ -21,6 +21,7 @@ public class TranslateActivity extends AppCompatActivity {
                     .replace(R.id.container, TranslateFragment.newInstance())
                     .commitNow();
         }
+
 
 
     }

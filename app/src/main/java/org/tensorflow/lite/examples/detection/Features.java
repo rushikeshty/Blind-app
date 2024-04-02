@@ -56,12 +56,12 @@ public class Features extends AppCompatActivity {
                             "Say call for voice calling. " +
                             "Say music to listen songs. " +
                             "Say back to return to Home screen." +
-                            "Say Reminder to create reminder." +
-                            "Say note create notes." +
-                            "Say qr to open qr product identification." +
-                            "Say translate to translate open translator." +
-                            "Say phone transfer to transfer amount using phone number." +
-                            "Say bank transfer to transfer amount using account number." +
+                             "Say Reminder to create reminder."+
+                            "Say note create notes."+
+                            "Say qr to open qr product identification."+
+                            "Say translate to translate open translator."+
+                            "Say phone transfer to transfer amount using phone number."+
+                            "Say bank transfer to transfer amount using account number."+
                             " say exit for closing the application.  Swipe left and say what you want ", TextToSpeech.QUEUE_FLUSH, null);
                 }
             }

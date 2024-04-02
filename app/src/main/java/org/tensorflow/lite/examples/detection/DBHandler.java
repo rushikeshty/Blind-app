@@ -16,19 +16,14 @@ public class DBHandler extends SQLiteOpenHelper {
     // creating a constant variables for our database.
     // below variable is for our database name.
     private static final String DB_NAME = "testdata";
-    public static ArrayList<String> arrayList = new ArrayList<>();
-    public static ArrayList<Double> arraysum = new ArrayList<>();
-    // below int is our database version
+  public static   ArrayList<String> arrayList=new ArrayList<>();
+    public static   ArrayList<Double> arraysum=new ArrayList<>();
+     // below int is our database version
     private static final int DB_VERSION = 1;
     static String date1;
-
-    public static String getDate() {
-        return date1;
-    }
-
+    public static String getDate(){return date1;}
     static String error;
-
-    public static String getError() {
+    public static String getError(){
         return error;
     }
 
@@ -47,7 +42,7 @@ public class DBHandler extends SQLiteOpenHelper {
 
 
     // creating a constructor for our database handler.
-    public DBHandler(Context context) {
+    public  DBHandler(Context context) {
         super(context, DB_NAME, null, DB_VERSION);
     }
 
@@ -63,27 +58,27 @@ public class DBHandler extends SQLiteOpenHelper {
         db.execSQL(query2);
         String query3 = "create table login (" +
                 "id integer primary key autoincrement,name text,age integer,contact integer, username text,password text)";
-        String query = "create table details (" + "id integer primary key autoincrement,username text,location text)";
-        db.execSQL(query3);
-        db.execSQL(query);
+        String query ="create table details (" + "id integer primary key autoincrement,username text,location text)";
+         db.execSQL(query3);
+         db.execSQL(query);
         // at last we are calling a exec sql
         // method to execute above sql query
 
 
-    }
 
-    public void DeleteDetails() {
+    }
+    public void DeleteDetails(){
         SQLiteDatabase db = this.getReadableDatabase();
-        String query = "delete from details";
+        String query="delete from details";
         db.execSQL(query);
     }
 
     // this method is use to add new course to our sqlite database.
-    public void addLogindetails(String name, int age, String contact, String username, String password) {
-        /** on below line we are creating a variable for
-         *our sqlite database and calling writable method
-         * as we are writing data in our database.
-         * */
+    public void addLogindetails(String name,int age,String contact,String username,String password) {
+       /** on below line we are creating a variable for
+        *our sqlite database and calling writable method
+        * as we are writing data in our database.
+        * */
 
         SQLiteDatabase db = this.getWritableDatabase();
 
@@ -95,11 +90,11 @@ public class DBHandler extends SQLiteOpenHelper {
         // along with its key and value pair.
         values.put("name", name);
 
-        values.put("age", age);
-        values.put("contact", contact);
-        values.put("username", username);
+        values.put("age",age);
+        values.put("contact",contact);
+        values.put("username",username);
 
-        values.put("password", password);
+        values.put("password",password);
 
 
         // after adding all values we are passing
@@ -107,12 +102,12 @@ public class DBHandler extends SQLiteOpenHelper {
         db.insertOrThrow("login", null, values);
     }
 
-    public void addDetails(String username, String location) {
+    public void addDetails(String username,String location){
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
-        values.put("username", username);
-        values.put("location", location);
-        db.insertOrThrow("details", null, values);
+        values.put("username",username);
+        values.put("location",location);
+        db.insertOrThrow("details",null,values);
     }
 
     // we have created a new method for reading all the courses.
@@ -123,13 +118,11 @@ public class DBHandler extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME);
         onCreate(db);
     }
-
-    public Boolean DeleteAllReminder() {
+    public Boolean DeleteAllReminder(){
         SQLiteDatabase database = this.getWritableDatabase();
         database.execSQL(" DELETE FROM reminder ");
         return true;
     }
-
     public String addreminder(String title, String date, String time) {
         //LocalDate dateObj = LocalDate.now();
         try {
@@ -146,12 +139,11 @@ public class DBHandler extends SQLiteOpenHelper {
                 return "Successfully inserted";
             }
 
-        } catch (Exception e) {
+        } catch(Exception e) {
             return e.getMessage();
         }
 
     }
-
     public Cursor readallreminders() {
         SQLiteDatabase database = this.getReadableDatabase();
         String query = "select * from reminder order by id desc";
@@ -165,16 +157,15 @@ public class DBHandler extends SQLiteOpenHelper {
         db.execSQL(sql);
         return true;
     }
-
-    public Boolean deleteData() {
-        SQLiteDatabase db = this.getWritableDatabase();
-        db.execSQL(" DELETE FROM " + TABLE_NAME);
+    public Boolean deleteData(){
+        SQLiteDatabase db=this.getWritableDatabase();
+        db.execSQL(" DELETE FROM " +TABLE_NAME);
         db.close();
         return true;
     }
 
     // this method is use to add new course to our sqlite database.
-    public void addNewCourse(String courseName, int num) {
+    public void addNewCourse(String courseName,int num) {
 
         /** on below line we are creating a variable for
          *our sqlite database and calling writable method
@@ -190,7 +181,7 @@ public class DBHandler extends SQLiteOpenHelper {
         // along with its key and value pair.
         values.put(NAME_COL, courseName);
 
-        values.put(NAME_NUM, num);
+        values.put(NAME_NUM,num);
 
         // after adding all values we are passing
         // content values to our table.
@@ -201,7 +192,6 @@ public class DBHandler extends SQLiteOpenHelper {
 
 
     }
-
     // we have created a new method for reading all the courses.
     public ArrayList<Prodlist> readCourses() {
         // on below line we are creating a
@@ -209,19 +199,20 @@ public class DBHandler extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getReadableDatabase();
 
         // on below line we are creating a cursor with query to read data from database.
-        String sql = "SELECT * FROM " + TABLE_NAME + " WHERE id=(SELECT max(id) FROM " + TABLE_NAME + ");";
+        String sql = "SELECT * FROM "+TABLE_NAME+" WHERE id=(SELECT max(id) FROM "+TABLE_NAME+");";
         @SuppressLint("Recycle")
-        Cursor cursorCourses = db.rawQuery(sql, null);
+        Cursor cursorCourses = db.rawQuery(sql,null);
 
         // on below line we are creating a new array list.
         ArrayList<Prodlist> courseModalArrayList = new ArrayList<>();
+
 
 
         // moving our cursor to first position.
         if (cursorCourses.moveToFirst()) {
             do {
                 // on below line we are adding the data from cursor to our array list.
-                courseModalArrayList.add(new Prodlist(cursorCourses.getString(1), cursorCourses.getString(2)));
+                courseModalArrayList.add(new Prodlist(cursorCourses.getString(1),cursorCourses.getString(2)));
                 arrayList.add(cursorCourses.getString(1));
                 arraysum.add(cursorCourses.getDouble(2));
 
