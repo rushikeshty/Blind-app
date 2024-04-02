@@ -13,15 +13,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import org.tensorflow.lite.examples.detection.Calling.CallActivity;
 import org.tensorflow.lite.examples.detection.Location.LocationActivity;
 import org.tensorflow.lite.examples.detection.Message.MessageReader;
-import org.tensorflow.lite.examples.detection.Moneytransfer.Banktransfer;
-import org.tensorflow.lite.examples.detection.Moneytransfer.phonetransfer;
 import org.tensorflow.lite.examples.detection.Music.Music;
 import org.tensorflow.lite.examples.detection.Navigation.Navigation;
-import org.tensorflow.lite.examples.detection.Note.Notes;
-import org.tensorflow.lite.examples.detection.ObjectDetection.MainActivity;
-import org.tensorflow.lite.examples.detection.QRProduct.QRactivity;
-import org.tensorflow.lite.examples.detection.Reminder.Reminder;
-import org.tensorflow.lite.examples.detection.Translate.TranslateActivity;
 
 import java.util.ArrayList;
 import java.util.Locale;
@@ -56,12 +49,6 @@ public class Features extends AppCompatActivity {
                             "Say call for voice calling. " +
                             "Say music to listen songs. " +
                             "Say back to return to Home screen." +
-                             "Say Reminder to create reminder."+
-                            "Say note create notes."+
-                            "Say qr to open qr product identification."+
-                            "Say translate to translate open translator."+
-                            "Say phone transfer to transfer amount using phone number."+
-                            "Say bank transfer to transfer amount using account number."+
                             " say exit for closing the application.  Swipe left and say what you want ", TextToSpeech.QUEUE_FLUSH, null);
                 }
             }
@@ -127,14 +114,8 @@ public class Features extends AppCompatActivity {
                     Intent intent = new Intent(getApplicationContext(), Weather.class);
                     startActivity(intent);
                     mVoiceInputTv.setText(null);
-                }
-                else if (mVoiceInputTv.getText().toString().contains("location")) {
+                } else if (mVoiceInputTv.getText().toString().contains("location")) {
                     Intent intent = new Intent(getApplicationContext(), LocationActivity.class);
-                    startActivity(intent);
-                    mVoiceInputTv.setText(null);
-                } else if (mVoiceInputTv.getText().toString().contains("object")) {
-                    onPause();
-                    Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                     startActivity(intent);
                     mVoiceInputTv.setText(null);
                 } else if (mVoiceInputTv.getText().toString().contains("message")) {
@@ -166,36 +147,6 @@ public class Features extends AppCompatActivity {
                 } else if (mVoiceInputTv.getText().toString().contains("exit")) {
                     onPause();
                     finishAffinity();
-                } else if (mVoiceInputTv.getText().toString().contains("qr") || mVoiceInputTv.getText().toString().contains("QR")) {
-                    Intent intent = new Intent(getApplicationContext(), QRactivity.class);
-                    startActivity(intent);
-                    mVoiceInputTv.setText(null);
-
-                } else if (mVoiceInputTv.getText().toString().contains("reminder")) {
-                    Intent intent = new Intent(getApplicationContext(), Reminder.class);
-                    startActivity(intent);
-                    mVoiceInputTv.setText(null);
-
-                } else if (mVoiceInputTv.getText().toString().contains("bank")) {
-                    Intent intent = new Intent(getApplicationContext(), Banktransfer.class);
-                    startActivity(intent);
-                    mVoiceInputTv.setText(null);
-
-                } else if (mVoiceInputTv.getText().toString().contains("phone")) {
-                    Intent intent = new Intent(getApplicationContext(), phonetransfer.class);
-                    startActivity(intent);
-                    mVoiceInputTv.setText(null);
-
-                } else if (mVoiceInputTv.getText().toString().contains("translat") || mVoiceInputTv.getText().toString().contains("translator")) {
-                    Intent intent = new Intent(getApplicationContext(), TranslateActivity.class);
-                    startActivity(intent);
-                    mVoiceInputTv.setText(null);
-
-                } else if (mVoiceInputTv.getText().toString().contains("note")) {
-                    Intent intent = new Intent(getApplicationContext(), Notes.class);
-                    startActivity(intent);
-                    mVoiceInputTv.setText(null);
-
                 } else {
                     textToSpeech.speak("Do not understand Swipe left Say again", TextToSpeech.QUEUE_FLUSH, null);
                 }

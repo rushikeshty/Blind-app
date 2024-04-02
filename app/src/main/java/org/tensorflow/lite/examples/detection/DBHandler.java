@@ -1,13 +1,10 @@
 package org.tensorflow.lite.examples.detection;
 
-import android.annotation.SuppressLint;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-
-import org.tensorflow.lite.examples.detection.QRProduct.Prodlist;
 
 import java.util.ArrayList;
 
@@ -193,34 +190,5 @@ public class DBHandler extends SQLiteOpenHelper {
 
     }
     // we have created a new method for reading all the courses.
-    public ArrayList<Prodlist> readCourses() {
-        // on below line we are creating a
-        // database for reading our database.
-        SQLiteDatabase db = this.getReadableDatabase();
-
-        // on below line we are creating a cursor with query to read data from database.
-        String sql = "SELECT * FROM "+TABLE_NAME+" WHERE id=(SELECT max(id) FROM "+TABLE_NAME+");";
-        @SuppressLint("Recycle")
-        Cursor cursorCourses = db.rawQuery(sql,null);
-
-        // on below line we are creating a new array list.
-        ArrayList<Prodlist> courseModalArrayList = new ArrayList<>();
-
-
-
-        // moving our cursor to first position.
-        if (cursorCourses.moveToFirst()) {
-            do {
-                // on below line we are adding the data from cursor to our array list.
-                courseModalArrayList.add(new Prodlist(cursorCourses.getString(1),cursorCourses.getString(2)));
-                arrayList.add(cursorCourses.getString(1));
-                arraysum.add(cursorCourses.getDouble(2));
-
-            } while (cursorCourses.moveToNext());
-            // moving our cursor to next.
-        }
-        cursorCourses.close();
-        return courseModalArrayList;
-    }
 
 }
