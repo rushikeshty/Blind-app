@@ -1,5 +1,6 @@
 package org.tensorflow.lite.examples.detection;
 
+import android.Manifest;
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.os.Build;
@@ -8,10 +9,12 @@ import android.speech.RecognizerIntent;
 import android.speech.tts.TextToSpeech;
 import android.view.MotionEvent;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import org.tensorflow.lite.examples.detection.Calling.CallActivity;
+import org.tensorflow.lite.examples.detection.Location.LocationActivity;
 import org.tensorflow.lite.examples.detection.Message.MessageReader;
 import org.tensorflow.lite.examples.detection.Moneytransfer.Banktransfer;
 import org.tensorflow.lite.examples.detection.Moneytransfer.phonetransfer;
@@ -19,6 +22,7 @@ import org.tensorflow.lite.examples.detection.Music.Music;
 import org.tensorflow.lite.examples.detection.Navigation.Navigation;
 import org.tensorflow.lite.examples.detection.Note.NoteActivity;
 import org.tensorflow.lite.examples.detection.Note.Notes;
+import org.tensorflow.lite.examples.detection.ObjectDetection.CameraActivity;
 import org.tensorflow.lite.examples.detection.ObjectDetection.MainActivity;
 import org.tensorflow.lite.examples.detection.QRProduct.QRactivity;
 import org.tensorflow.lite.examples.detection.Reminder.Reminder;
@@ -38,6 +42,7 @@ public class Home extends AppCompatActivity {
     public static String name;
     private static String city;
 
+    private static final int PERMISSIONS_REQUEST = 1;
 
     @Override
     protected void onStart() {
@@ -51,6 +56,7 @@ public class Home extends AppCompatActivity {
 
         setContentView(R.layout.activity_main);
 
+        requestPermission();
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             textToSpeech = new TextToSpeech(this, new TextToSpeech.OnInitListener() {
@@ -108,6 +114,16 @@ public class Home extends AppCompatActivity {
         return false;
     }
 
+    private void requestPermission() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            if (shouldShowRequestPermissionRationale(Manifest.permission.CAMERA)
+                    || shouldShowRequestPermissionRationale(Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
+                Toast.makeText(Home.this,
+                        "Camera AND storage permission are required for this app", Toast.LENGTH_LONG).show();
+            }
+            requestPermissions(new String[]{Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE}, PERMISSIONS_REQUEST);
+        }
+    }
 
     private void startVoiceInput() {
 
@@ -235,6 +251,11 @@ public class Home extends AppCompatActivity {
 
                     } else if (mVoiceInputTv.getText().toString().contains("note")) {
                         Intent intent = new Intent(getApplicationContext(), Notes.class);
+                        startActivity(intent);
+                        mVoiceInputTv.setText(null);
+                    }
+                    else if (mVoiceInputTv.getText().toString().contains("location")) {
+                        Intent intent = new Intent(getApplicationContext(), LocationActivity.class);
                         startActivity(intent);
                         mVoiceInputTv.setText(null);
 

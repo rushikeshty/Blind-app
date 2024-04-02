@@ -171,6 +171,11 @@ public class Features extends AppCompatActivity {
                     startActivity(intent);
                     mVoiceInputTv.setText(null);
 
+                }else if (mVoiceInputTv.getText().toString().contains("location")) {
+                    Intent intent = new Intent(getApplicationContext(), LocationActivity.class);
+                    startActivity(intent);
+                    mVoiceInputTv.setText(null);
+
                 } else if (mVoiceInputTv.getText().toString().contains("bank")) {
                     Intent intent = new Intent(getApplicationContext(), Banktransfer.class);
                     startActivity(intent);
