@@ -10,11 +10,7 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import org.tensorflow.lite.examples.detection.Calling.CallActivity;
 import org.tensorflow.lite.examples.detection.Location.LocationActivity;
-import org.tensorflow.lite.examples.detection.Message.MessageReader;
-import org.tensorflow.lite.examples.detection.Music.Music;
-import org.tensorflow.lite.examples.detection.Navigation.Navigation;
 
 import java.util.ArrayList;
 import java.util.Locale;
@@ -118,33 +114,7 @@ public class Features extends AppCompatActivity {
                     Intent intent = new Intent(getApplicationContext(), LocationActivity.class);
                     startActivity(intent);
                     mVoiceInputTv.setText(null);
-                } else if (mVoiceInputTv.getText().toString().contains("message")) {
-                    Intent intent = new Intent(getApplicationContext(), MessageReader.class);
-                    startActivity(intent);
-                    mVoiceInputTv.setText(null);
-
-                } else if (mVoiceInputTv.getText().toString().contains("call")) {
-                    Intent intent = new Intent(getApplicationContext(), CallActivity.class);
-                    startActivity(intent);
-                    mVoiceInputTv.setText(null);
-                } else if (mVoiceInputTv.getText().toString().contains("music")) {
-                    Intent intent = new Intent(getApplicationContext(), Music.class);
-                    startActivity(intent);
-                    mVoiceInputTv.setText(null);
-                } else if (mVoiceInputTv.getText().toString().contains("back")) {
-                    mVoiceInputTv.setText(null);
-                    startActivity(new Intent(this, Home.class));
-                } else if (mVoiceInputTv.getText().toString().contains("battery")) {
-                    Intent intent = new Intent(getApplicationContext(), Battery.class);
-                    startActivity(intent);
-                    mVoiceInputTv.setText(null);
-
-                } else if (mVoiceInputTv.getText().toString().contains("navigat")) {
-                    Intent intent = new Intent(getApplicationContext(), Navigation.class);
-                    startActivity(intent);
-                    mVoiceInputTv.setText(null);
-
-                } else if (mVoiceInputTv.getText().toString().contains("exit")) {
+                }  else if (mVoiceInputTv.getText().toString().contains("exit")) {
                     onPause();
                     finishAffinity();
                 } else {
