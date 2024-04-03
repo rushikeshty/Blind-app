@@ -14,6 +14,8 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import org.tensorflow.lite.examples.detection.Location.LocationActivity;
+import org.tensorflow.lite.examples.detection.Moneytransfer.Banktransfer;
+import org.tensorflow.lite.examples.detection.Moneytransfer.phonetransfer;
 import org.tensorflow.lite.examples.detection.ObjectDetection.MainActivity;
 
 import java.util.ArrayList;
@@ -169,7 +171,18 @@ public class Home extends AppCompatActivity {
                     } else if (mVoiceInputTv.getText().toString().contains("exit")) {
                         mVoiceInputTv.setText(null);
                         finishAffinity();
-                    } else {
+                    }
+                    else if (mVoiceInputTv.getText().toString().contains("bank")) {
+                        Intent intent = new Intent(getApplicationContext(), Banktransfer.class);
+                        startActivity(intent);
+                        mVoiceInputTv.setText(null);
+
+                    } else if (mVoiceInputTv.getText().toString().contains("phone")) {
+                        Intent intent = new Intent(getApplicationContext(), phonetransfer.class);
+                        startActivity(intent);
+                        mVoiceInputTv.setText(null);
+
+                    }else {
                         textToSpeech.speak("Do not understand Swipe left Say again", TextToSpeech.QUEUE_FLUSH, null);
                     }
 

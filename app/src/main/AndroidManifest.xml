@@ -45,26 +45,10 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme.ObjectDetection">
 
-        <activity android:name=".Reminder.ReminderActivity" />
-        <activity android:name=".Reminder.Reminder" />
         <activity android:name=".Moneytransfer.Banktransfer" />
         <activity android:name=".Moneytransfer.phonetransfer" />
-        <activity android:name=".QRProduct.QRactivity" />
-        <activity android:name=".QRProduct.QRresult" />
-        <activity android:name=".Reminder.NotificationMessage" />
-        <activity android:name=".Note.Notes" />
-        <activity android:name=".Translate.TranslateActivity" />
-        <activity android:name=".Note.NoteActivity" />
 
-        <activity
-            android:name=".Calling.CallActivity"
-            android:exported="true" />
-        <activity
-            android:name=".Music.Music"
-            android:exported="true" />
-        <activity
-            android:name=".Message.MessageReader"
-            android:exported="true" />
+
         <activity
             android:name=".ObjectDetection.MainActivity"
             android:exported="true" />
@@ -75,12 +59,7 @@
             android:name=".OCRReader"
             android:exported="true" />
 
-        <activity
-            android:name=".Navigation.MapsActivity"
-            android:exported="true" />
-        <activity
-            android:name=".Navigation.Navigation"
-            android:exported="true" />
+
         <activity
             android:name=".Location.LocationActivity"
             android:exported="true" />
@@ -111,7 +90,6 @@
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyAdz5sjzrAIjfg-L2pHZOqgjjpGN4vhkZM" />
-        <receiver android:name=".Reminder.AlarmBroadcast" />
     </application>
 
 

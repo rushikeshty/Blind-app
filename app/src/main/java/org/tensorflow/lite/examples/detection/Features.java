@@ -11,6 +11,8 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 
 import org.tensorflow.lite.examples.detection.Location.LocationActivity;
+import org.tensorflow.lite.examples.detection.Moneytransfer.Banktransfer;
+import org.tensorflow.lite.examples.detection.Moneytransfer.phonetransfer;
 
 import java.util.ArrayList;
 import java.util.Locale;
@@ -114,7 +116,18 @@ public class Features extends AppCompatActivity {
                     Intent intent = new Intent(getApplicationContext(), LocationActivity.class);
                     startActivity(intent);
                     mVoiceInputTv.setText(null);
-                }  else if (mVoiceInputTv.getText().toString().contains("exit")) {
+                }
+                else if (mVoiceInputTv.getText().toString().contains("bank")) {
+                    Intent intent = new Intent(getApplicationContext(), Banktransfer.class);
+                    startActivity(intent);
+                    mVoiceInputTv.setText(null);
+
+                } else if (mVoiceInputTv.getText().toString().contains("phone")) {
+                    Intent intent = new Intent(getApplicationContext(), phonetransfer.class);
+                    startActivity(intent);
+                    mVoiceInputTv.setText(null);
+
+                }else if (mVoiceInputTv.getText().toString().contains("exit")) {
                     onPause();
                     finishAffinity();
                 } else {
